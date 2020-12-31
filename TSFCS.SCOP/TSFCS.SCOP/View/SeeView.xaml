@@ -1,0 +1,70 @@
+﻿<Window x:Class="TSFCS.SCOP.View.SeeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:light="http://www.galasoft.ch/mvvmlight"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+        Title="SeeView" Height="480" Width="640" ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <Binding Path="See" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <light:EventToCommand Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <light:EventToCommand Command="{Binding ClosedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <light:EventToCommand Command="{Binding DragMoveCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border BorderBrush="LightGray" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Background="#31C37C" LastChildFill="False">
+                <Label DockPanel.Dock="Left" Margin="10,2,0,0" VerticalAlignment="Center" Foreground="White" Content="下行数据"/>
+                <ui:ImageButton DockPanel.Dock="Right" NormalImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_normal.png" 
+                                            HoverImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_hover.png"
+                                            PressImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_press.png"
+                                            DisableImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_normal.png"
+                                            ImageSize="28" Margin="0 2 2 0" Command="{Binding ClosedCommand}" 
+                                            ToolTip="关闭"/>
+            </DockPanel>
+            <Grid Grid.Row="1">
+                <RichTextBox x:Name="rtxtRecv" BorderThickness="0" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <light:EventToCommand Command="{Binding SeeingCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text="{Binding StrData}"/>
+                        </Paragraph>
+                    </FlowDocument>
+                    <RichTextBox.ContextMenu>
+                        <ContextMenu Style="{DynamicResource ContextMenuStyle}" StaysOpen="true">
+                            <MenuItem Style="{DynamicResource MenuItemStyle}" Command="{Binding ClearCommand}">
+                                <MenuItem.Header>
+                                    <TextBlock Text="清空"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem Style="{DynamicResource MenuItemStyle}" Command="{Binding SaveCommand}">
+                                <MenuItem.Header>
+                                    <TextBlock Text="保存"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ContextMenu>
+                    </RichTextBox.ContextMenu>
+                </RichTextBox>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

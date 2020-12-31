@@ -1,0 +1,205 @@
+﻿<Page x:Class="TSFCS.SCOP.View.DigitView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:light="http://www.galasoft.ch/mvvmlight"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="DigitView">
+    <Page.DataContext>
+        <Binding Path="Digit" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="遥测显示" Margin="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="模拟量" Margin="2">
+                    <UniformGrid Rows="5" Columns="2">
+                        <Label Content="温度:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                            <Label Content="℃" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                        <Label Content="AGC电压:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Agc}"/>
+                            <Label Content="V" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                        <Label Content="信噪比:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Snr}"/>
+                        </StackPanel>
+                        <Label Content="多普勒频偏:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Doppler}"/>
+                        </StackPanel>
+                        <Label Content="是否收到载荷数据:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding DataState}"/>
+                        </StackPanel>
+                    </UniformGrid>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="数字量" Margin="2">
+                    <UniformGrid Rows="8" Columns="2">
+                        <Label Content="遥控数据门指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="位同步锁定指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="载波锁定指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="发射2本振锁定指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="发射1本振锁定指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="接收本振锁定指示:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="刷新工作状态:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                        <Label Content="发射开关工作状态:" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120"/>
+                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="20" IsReadOnly="True" Text="{Binding Temp}"/>
+                    </UniformGrid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="遥控指令" Margin="2">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding DigitSelect}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <RadioButton GroupName="rdoDigitSelect" Width="100" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <light:EventToCommand Command="{Binding DataContext.DigitSelectChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="遥测请求" Width="75" Height="28" CornerRadius="2" Command="{Binding DigitDataCommand}"/>
+                </Grid>
+
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding DigitTransmit}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <RadioButton GroupName="rdoDigitTransmit" Width="100" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <light:EventToCommand Command="{Binding DataContext.DigitTransmitChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="发射机指令" Width="75" Height="28" CornerRadius="2" Command="{Binding DigitTransmitCommand}"/>
+                </Grid>
+
+                <Grid Grid.Row="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding DigitMode}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <RadioButton GroupName="rdoDigitMode" Width="100" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <light:EventToCommand Command="{Binding DataContext.DigitModeChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="模式指令" Width="75" Height="28" CornerRadius="2" Command="{Binding DigitModeCommand}"/>
+                </Grid>
+
+                <Grid Grid.Row="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding DigitRefresh}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <RadioButton GroupName="rdoDigitRefresh" Width="100" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <light:EventToCommand Command="{Binding DataContext.DigitRefreshChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="刷新指令" Width="75" Height="28" CornerRadius="2" Command="{Binding DigitRefreshCommand}"/>
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+        
+    </Grid>
+</Page>

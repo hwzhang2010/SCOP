@@ -1,0 +1,61 @@
+﻿<Window x:Class="TSFCS.SCOP.View.SetView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:light="http://www.galasoft.ch/mvvmlight"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+        Title="SetView" Height="240" Width="320" ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <Binding Path="Set" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <light:EventToCommand Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <light:EventToCommand Command="{Binding DragMoveCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border BorderBrush="LightGray" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Background="#31C37C" LastChildFill="False">
+                <Label DockPanel.Dock="Left" Margin="10,2,0,0" VerticalAlignment="Center" Foreground="White" Content="设置"/>
+                <ui:ImageButton DockPanel.Dock="Right" NormalImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_normal.png" 
+                                            HoverImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_hover.png"
+                                            PressImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_press.png"
+                                            DisableImagePath="/TSFCS.SCOP;component/ImageSource/Sys/close_normal.png"
+                                            ImageSize="28" Margin="0 2 2 0" Command="{Binding ClosedCommand}" 
+                                            ToolTip="关闭"/>
+            </DockPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Content="组播地址(遥测):"/>
+                <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Content="组播地址(遥控):"/>
+                <Label Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Content="组播端口:"/>
+                <ui:WaterMarkTextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Height="28" CornerRadius="2" Text="{Binding AddrRecv}"/>
+                <ui:WaterMarkTextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Height="28" CornerRadius="2" Text="{Binding AddrSend}"/>
+                <ui:WaterMarkTextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="28" CornerRadius="2" Text="{Binding Port}"/>
+                <UniformGrid Grid.Row="3" Grid.Column="1" Columns="2">
+                    <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Left" Content="确定" Width="75" Height="28" CornerRadius="2" Command="{Binding OkCommand}"/>
+                    <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Left" Content="取消" Width="75" Height="28" CornerRadius="2" Command="{Binding CancelCommand}"/>
+                </UniformGrid>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

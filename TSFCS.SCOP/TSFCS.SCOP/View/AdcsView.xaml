@@ -1,0 +1,675 @@
+﻿<Page x:Class="TSFCS.SCOP.View.AdcsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:light="http://www.galasoft.ch/mvvmlight"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="AdcsView">
+    <Page.DataContext>
+        <Binding Path="Adcs" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    <Grid>
+        <TabControl Background="Transparent" Style="{DynamicResource TopTabControlStyle}">
+            <ui:TopTabItem Header="姿控" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="姿控" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding AdcsSoftOnOff}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <RadioButton GroupName="rdoAdcsSoftOnOff" Width="50" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <light:EventToCommand Command="{Binding DataContext.AdcsSoftOnOffChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </RadioButton>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" Content="星上软件开关" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsSoftOnOffCommand}"/>
+                                    <ui:FlatButton Grid.Column="3" VerticalAlignment="Center" Content="遥测数据请求" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsDataCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding AdcsWorkMode}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <RadioButton GroupName="rdoAdcsWorkMode" Width="30" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <light:EventToCommand Command="{Binding DataContext.AdcsWorkModeChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </RadioButton>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="软件工作模式" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsWorkModeCommand}"/>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" Content="配置文件更新" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsConfigUpdateCommand}"/>
+                                    <ui:FlatButton Grid.Column="3" VerticalAlignment="Center" Content="轨道参数更新" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsOrbitUpdateCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox x:Name="cmbAdcsCtrlMode"  Width="75" Height="28" Margin="10" IsEditable="False" BorderBrush="#e8e8e8" ItemsSource="{Binding AdcsCtrlMode}" SelectedItem="{Binding CurrAdcsCtrlMode}" SelectedValuePath="Id" DisplayMemberPath="Name">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.AdcsCtrlModeChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="控制模式" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsCtrlModeCommand}"/>
+                                    <ui:WaterMarkTextBox Grid.Column="2" x:Name="txtAdcsCtrlT" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Height="28" Margin="10 0" CornerRadius="2" Hint="[0.1-20]" Text="{Binding Path=AdcsCtrlT, Mode=TwoWay}" />
+                                    <ui:FlatButton Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Content="控制周期" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsCtrlTCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsCtrlT}"/>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:WaterMarkTextBox x:Name="txtAdcsAngleMax" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Height="28" Margin="10 0" CornerRadius="2" Hint="[0-1]" Text="{Binding Path=AdcsAngleMax, Mode=TwoWay}"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="最大机动角" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsAngleMaxCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsAngleMax}"/>
+                                    <ui:WaterMarkTextBox Grid.Column="2" x:Name="txtAdcsAngleRateMax" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Height="28" Margin="10 0" CornerRadius="2" Hint="[0-1]" Text="{Binding Path=AdcsAngleRateMax, Mode=TwoWay}"/>
+                                    <ui:FlatButton Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Content="最大机动角速度" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsAngleRateMaxCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsAngleRateMax}"/>
+                                </Grid>
+                                
+
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="1" Header="反作用轮" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding AdcsMwSelect}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <RadioButton GroupName="rdoAdcsMwSelect" Width="50" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <light:EventToCommand Command="{Binding DataContext.AdcsMwSelectChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </RadioButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:WaterMarkTextBox x:Name="txtAdcsMwSpeedNormal" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" Margin="10 0" CornerRadius="2" Hint="[0-4000]" Text="{Binding Path=AdcsMwSpeedNormal, Mode=TwoWay}"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="额定转速" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsMwSpeedNormalCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsMwSpeedNormal}"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:WaterMarkTextBox x:Name="txtAdcsMwSpeedMax" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" Margin="10 0" CornerRadius="2" Hint="[0-4000]" Text="{Binding Path=AdcsMwSpeedMax, Mode=TwoWay}"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="最高转速" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsMwSpeedMaxCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsMwSpeedMax}"/>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:WaterMarkTextBox x:Name="txtAdcsMwSpeedStep" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" Margin="10 0" CornerRadius="2" Hint="[0-4000]" Text="{Binding Path=AdcsMwSpeedStep, Mode=TwoWay}"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="最大增速步长" Width="75" Height="28" Margin="10 0" CornerRadius="2" Command="{Binding AdcsMwSpeedStepCommand}" CommandParameter="{Binding Path=Text, ElementName=txtAdcsMwSpeedStep}"/>
+                                </Grid>
+                            </Grid>
+                            
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="姿控遥测" Margin="2">
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding AdcsData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </ui:TopTabItem>
+
+            <ui:TopTabItem Header="反作用轮" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Middle">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <UniformGrid>
+                            <GroupBox Header="反作用轮选择" Margin="2">
+                                <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding MwSelect}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <RadioButton GroupName="rdoMwSelect" Margin="10,2"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <light:EventToCommand Command="{Binding DataContext.MwSelectChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </RadioButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </GroupBox>
+                        </UniformGrid>
+                        <GroupBox Grid.Row="1" Header="遥控指令" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,2" Text="模式:"/>
+                                <ItemsControl Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding MwMode}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <RadioButton GroupName="rdoMwMode" Margin="10,2"
+                                                             IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <light:EventToCommand Command="{Binding DataContext.MwModeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </RadioButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,2" Text="速度:"/>
+                                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2"  Orientation="Horizontal">
+                                    <ui:WaterMarkTextBox  x:Name="txtMwSpeed" Width="120" Height="24" CornerRadius="2"  Text="{Binding Path=MwSpeed, Mode=TwoWay}"/>
+                                    <TextBlock VerticalAlignment="Center" Margin="10,0" Text="rpm"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,2" Text="力矩:"/>
+                                <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2"  Orientation="Horizontal">
+                                    <!--<ui:WaterMarkTextBox x:Name="iIntegral" Width="120" Height="24" CornerRadius="2" Text="0"/>-->
+                                    <ui:NumericBox x:Name="nbxMwMoment" Width="120" Height="30" MinValue="-2" MaxValue="2" Step="1" Value="{Binding MwMoment}"/>
+                                    <TextBlock VerticalAlignment="Center" Margin="10,0" Text="mNm"/>
+                                </StackPanel>
+                                <ui:FlatButton Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2" Content="指令发送" Width="120" Height="30" CornerRadius="2" Command="{Binding MwCommand}"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <GroupBox Header="遥测显示" Margin="2">
+                            <StackPanel>
+                                <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding MwData}" Style="{DynamicResource DataGridStyle}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                        <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                        <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                        <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </ui:TopTabItem>
+
+            <ui:TopTabItem Header="磁强计" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Middle">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="磁强计" Margin="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding MmData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值(uT)" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            
+                            <UniformGrid Grid.Row="1" Margin="2" Columns="2">
+                                <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" ItemsSource="{Binding MmSelect}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <RadioButton GroupName="rdoMmSelect" Margin="10,0"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <light:EventToCommand Command="{Binding DataContext.MmSelectChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </RadioButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <ui:FlatButton Grid.Row="1" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="遥测请求" Width="120" Height="28" CornerRadius="2" Command="{Binding MmDataCommand}"/>
+                            </UniformGrid>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Header="实验磁强计" Margin="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding TmrData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值(uT)" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ui:FlatButton Grid.Row="1" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="遥测请求" Width="120" Height="28" CornerRadius="2" Command="{Binding TmrDataCommand}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </ui:TopTabItem>
+
+            <ui:TopTabItem Header="磁力矩器" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Middle">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <GroupBox Header="轴向选择" Margin="10,2">
+                            <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding MtAxis}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <RadioButton GroupName="rdoMtAxis" Width="200" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <light:EventToCommand Command="{Binding DataContext.MtAxisChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </RadioButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </GroupBox>
+                    </Grid>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2"  Orientation="Horizontal">
+                        <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Right" Content="指令发送" Width="120" Height="28" CornerRadius="2" Command="{Binding MtCommand}" />
+                        <ui:WaterMarkTextBox  x:Name="txtMtPwm" Margin="10,2" Width="120" Height="24" CornerRadius="2" Hint="占空比" Text="{Binding Path=MtPwm, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" Text="占空比"/>
+                    </StackPanel>
+
+                </Grid>
+            </ui:TopTabItem>
+            
+            <ui:TopTabItem Header="星敏" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Middle">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="星敏选择" Margin="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding StarSelect}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <RadioButton GroupName="rdoStarSelect" Width="50" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <light:EventToCommand Command="{Binding DataContext.StarSelectChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </RadioButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="遥测请求" Width="75" Height="28" CornerRadius="2" Command="{Binding StarDataCommand}"/>
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox Grid.Row="1" Header="系统设置" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="工作模式">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding StarWorkMode}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoStarWorkMode" Width="75" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.StarWorkModeChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" Content="设置" Width="75" Height="28" CornerRadius="2" Command="{Binding StarWorkModeCommand}"/>
+                                    </Grid>
+                                </GroupBox>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:WaterMarkTextBox x:Name="txtStarSecond" VerticalAlignment="Center" HorizontalAlignment="Right" Width="196" Height="28" CornerRadius="2" Hint="UTC时间秒"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="秒整数校准" Width="75" Height="28" CornerRadius="2" Command="{Binding StarSecondCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStarSecond}"/>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" Content="系统复位" Width="75" Height="28" Margin="0,0,8,0" CornerRadius="2" Command="{Binding StarResetCommand}"/>
+                                </Grid>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2" Header="姿态导航" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <!--<dm:DMTextBox x:Name="navi" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Height="28" CornerRadius="2" Hint="4+NN"/>-->
+                                    <ui:NumericBox x:Name="nubStarNavi" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="导航星数" Width="75" Height="28" CornerRadius="2" Command="{Binding StarNaviCommand}" CommandParameter="{Binding Path=Text, ElementName=nubStarNavi}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ui:WaterMarkTextBox x:Name="txtStarSeek" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" CornerRadius="2" Hint="不建议修改"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="四星阈值" Width="75" Height="28" CornerRadius="2" Command="{Binding StarSeekCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStarSeek}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding StarFilter}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <RadioButton GroupName="rdoStarFilter" Width="50" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <light:EventToCommand Command="{Binding DataContext.StarFilterChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </RadioButton>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="四元数滤波" Width="75" Height="28" CornerRadius="2" Command="{Binding StarFilterCommand}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ui:WaterMarkTextBox x:Name="txtStatFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" CornerRadius="2" Hint="不建议修改"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="跟踪阈值" Width="75" Height="28" CornerRadius="2" Command="{Binding StarFollowCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStatFollow}"/>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="3" Header="图像传输" Margin="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding StarPict}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <RadioButton GroupName="rodStarPict" Width="50" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <light:EventToCommand Command="{Binding DataContext.StarPictChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </RadioButton>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="图像传输" Width="75" Height="28" CornerRadius="2" Command="{Binding StarPictCommand}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ui:WaterMarkTextBox x:Name="txtStarFormation" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" CornerRadius="2" Hint="0,10位;>0,8位(14)"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="成像模式" Width="75" Height="28" CornerRadius="2" Command="{Binding StarFormationCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStarFormation}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ui:WaterMarkTextBox x:Name="txtStarExpo" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" CornerRadius="2" Hint="30+10*NN"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="曝光时间" Width="75" Height="28" CornerRadius="2" Command="{Binding StarExpoCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStarExpo}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ui:WaterMarkTextBox x:Name="txtStarFix" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="28" CornerRadius="2" Hint="固定阈值"/>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="图像阈值" Width="75" Height="28" CornerRadius="2" Command="{Binding StarFixCommand}" CommandParameter="{Binding Path=Text, ElementName=txtStarFix}"/>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="遥测显示" Margin="2">
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding StarData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </ui:TopTabItem>
+
+            <ui:TopTabItem Header="太阳敏" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Middle">
+                <Grid>
+                    <GroupBox Grid.Row="1" Header="太阳敏" Margin="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding AssData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ui:FlatButton Grid.Row="1" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="遥测请求" Width="120" Height="28" CornerRadius="2" Command="{Binding AssDataCommand}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </ui:TopTabItem>
+
+            <ui:TopTabItem Header="陀螺" Height="36" SelectForeground="White" SelectedColor="#2BB669" TabItemType="Right">
+                <Grid>
+                    <GroupBox Header="陀螺" Margin="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding GyroData}" Style="{DynamicResource DataGridStyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                    <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                    <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                    <DataGridTextColumn Header="单位" Width="2*" FontSize="12" Binding="{Binding Unit}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <UniformGrid Grid.Row="1" Columns="2">
+                                <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2" Content="复位" Width="120" Height="28" CornerRadius="2" Command="{Binding MmResetCommand}"/>
+                                <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2" Content="查询" Width="120" Height="28" CornerRadius="2" Command="{Binding MmQueryCommand}"/>
+                            </UniformGrid>
+                            
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </ui:TopTabItem>
+            
+        </TabControl>
+    </Grid>
+</Page>

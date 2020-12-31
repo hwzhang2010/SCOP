@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8D6BBF39-645C-4D7F-B25C-02FFC0BD8129}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FastSocket</RootNamespace>
+    <AssemblyName>FastSocket</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Messaging\CommandLineMessage.cs" />
+    <Compile Include="Client\Messaging\IMessage.cs" />
+    <Compile Include="Client\Messaging\ThriftMessage.cs" />
+    <Compile Include="Client\Protocol\BadProtocolException.cs" />
+    <Compile Include="Client\Protocol\CommandLineProtocol.cs" />
+    <Compile Include="Client\Protocol\IProtocol.cs" />
+    <Compile Include="Client\Protocol\ThriftProtocol.cs" />
+    <Compile Include="Client\Request.cs" />
+    <Compile Include="Client\RequestException.cs" />
+    <Compile Include="Client\SocketClient.cs" />
+    <Compile Include="Client\SocketConnector.cs" />
+    <Compile Include="Client\ThriftClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\AbsSocketService.cs" />
+    <Compile Include="Server\AbsUdpService.cs" />
+    <Compile Include="Server\Config\Server.cs" />
+    <Compile Include="Server\Config\ServerCollection.cs" />
+    <Compile Include="Server\Config\SocketServerConfig.cs" />
+    <Compile Include="Server\ISocketListener.cs" />
+    <Compile Include="Server\ISocketService.cs" />
+    <Compile Include="Server\IUdpServer.cs" />
+    <Compile Include="Server\IUdpService.cs" />
+    <Compile Include="Server\Messaging\CommandLineMessage.cs" />
+    <Compile Include="Server\Messaging\IMessage.cs" />
+    <Compile Include="Server\Messaging\ThriftMessage.cs" />
+    <Compile Include="Server\Protocol\BadProtocolException.cs" />
+    <Compile Include="Server\Protocol\CommandLineProtocol.cs" />
+    <Compile Include="Server\Protocol\IProtocol.cs" />
+    <Compile Include="Server\Protocol\IUdpProtocol.cs" />
+    <Compile Include="Server\Protocol\ProtocolNames.cs" />
+    <Compile Include="Server\Protocol\ThriftProtocol.cs" />
+    <Compile Include="Server\SocketListener.cs" />
+    <Compile Include="Server\SocketServer.cs" />
+    <Compile Include="Server\SocketServerManager.cs" />
+    <Compile Include="Server\UdpServer.cs" />
+    <Compile Include="Server\UdpSession.cs" />
+    <Compile Include="SocketBase\BaseHost.cs" />
+    <Compile Include="SocketBase\ConnectionCollection.cs" />
+    <Compile Include="SocketBase\DisconnectedHandler.cs" />
+    <Compile Include="SocketBase\IConnection.cs" />
+    <Compile Include="SocketBase\IHost.cs" />
+    <Compile Include="SocketBase\Log\ConsoleListener.cs" />
+    <Compile Include="SocketBase\Log\DiagnosticListener.cs" />
+    <Compile Include="SocketBase\Log\ITraceListener.cs" />
+    <Compile Include="SocketBase\Log\ListenerWrapper.cs" />
+    <Compile Include="SocketBase\Log\Trace.cs" />
+    <Compile Include="SocketBase\MessageReceivedEventArgs.cs" />
+    <Compile Include="SocketBase\Packet.cs" />
+    <Compile Include="SocketBase\Utils\ConsistentHashContainer.cs" />
+    <Compile Include="SocketBase\Utils\Date.cs" />
+    <Compile Include="SocketBase\Utils\IPUtility.cs" />
+    <Compile Include="SocketBase\Utils\NetworkBitConverter.cs" />
+    <Compile Include="SocketBase\Utils\ReflectionHelper.cs" />
+    <Compile Include="SocketBase\Utils\TaskEx.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

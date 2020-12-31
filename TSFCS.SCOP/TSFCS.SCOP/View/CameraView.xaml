@@ -1,0 +1,474 @@
+﻿<Page x:Class="TSFCS.SCOP.View.CameraView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:light="http://www.galasoft.ch/mvvmlight"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="CameraView">
+    <Page.DataContext>
+        <Binding Path="Camera" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="相机遥控指令" Margin="2">
+                <Grid>
+                    <TabControl BorderBrush="Transparent" BorderThickness="0" Style="{DynamicResource TabControlWithUnderLineStyle}">
+                        <TabItem Header="1" Margin="5 0" Height="28" Width="50" Style="{DynamicResource TabItemWithUnderLineStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2">
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CameraPictMode}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoCameraPictMode" Width="130" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraPictModeChangeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="成像模式" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraPictModeCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2">
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CameraDigitMode}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoCameraDigitMode" Width="130" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraDigitModeChangeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="数传模式" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraDigitModeCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DockPanel LastChildFill="False" Margin="2">
+                                        <ItemsControl DockPanel.Dock="Left" VerticalAlignment="Center" ItemsSource="{Binding CameraPict}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoCameraPict" Width="75" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraPictChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <ui:WaterMarkTextBox DockPanel.Dock="Right" x:Name="txtCameraPictStart" VerticalAlignment="Center" Width="50" Height="28" Margin="2 0" CornerRadius="2" Hint="文件号" Text="{Binding Path=CameraPictStart, Mode=TwoWay}" />
+                                    </DockPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="拍照指令" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraPictCommand}" />
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DockPanel LastChildFill="False" Margin="2">
+                                        <ItemsControl DockPanel.Dock="Left" VerticalAlignment="Center" ItemsSource="{Binding CameraDigit}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoCameraDigit" Width="75" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraDigitChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <ui:WaterMarkTextBox DockPanel.Dock="Right" x:Name="txtCameraDigiOffset" VerticalAlignment="Center" HorizontalAlignment="Right" Width="50" Height="28" Margin="2 0" CornerRadius="2" Hint="文件偏移" Text="{Binding Path=CameraDigitOffset, Mode=TwoWay}" />
+                                        <ui:WaterMarkTextBox DockPanel.Dock="Right" x:Name="txtCameraDigitStart" VerticalAlignment="Center" HorizontalAlignment="Right" Width="50" Height="28" Margin="2 0" CornerRadius="2" Hint="文件号" Text="{Binding Path=CameraDigitStart, Mode=TwoWay}"/>
+                                    </DockPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="数传指令" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraDigitCommand}"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem  Header="2" Margin="5 0" Height="28" Width="50" Style="{DynamicResource TabItemWithUnderLineStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="4*"/>
+                                </Grid.RowDefinitions>
+                                <UniformGrid Columns="4">
+                                    <ui:WaterMarkTextBox x:Name="txtFileSearchNum" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Height="28" CornerRadius="2" Hint="01～FF"/>
+                                    <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Left" Content="文件查询" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraFileSearchCommand}" CommandParameter="{Binding Path=Text, ElementName=txtFileSearchNum}"/>
+                                    <ui:WaterMarkTextBox x:Name="txtFileDeleteNum" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Height="28" CornerRadius="2" Hint="01～FF"/>
+                                    <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Left" Content="文件删除" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraFileDeleteCommand}" CommandParameter="{Binding Path=Text, ElementName=txtFileDeleteNum}"/>
+                                </UniformGrid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:FlatButton Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Content="硬盘格式化" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraFileFormatCommand}"/>
+                                </Grid>
+                                <GroupBox Grid.Row="2" Header="文件删除应答" Margin="2">
+                                    <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding CameraFileResponse}" Style="{DynamicResource DataGridStyle}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                                            <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                                            <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </GroupBox>
+
+
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem  Header="3" Margin="5 0" Height="28" Width="50" Style="{DynamicResource TabItemWithUnderLineStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2">
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding CameraIntegralDirection}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rdoCameraIntegralDirection" Width="90" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraIntegralDirectionChangeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="积分方向" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraIntegralDirectionCommand}"/>
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <TextBlock VerticalAlignment="Center" Text="压缩因子:"/>
+                                        <ui:NumericBox x:Name="nubCameraZipFactor" VerticalAlignment="Center" Margin="5,0" Width="90" Height="30" MinValue="1" MaxValue="32" Step="1"/>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="压缩因子" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraZipFactorCommand}" CommandParameter="{Binding Path=Text, ElementName=nubCameraZipFactor}"/>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock VerticalAlignment="Center" Text="全色谱:"/>
+                                        <ui:WaterMarkTextBox x:Name="txtFullChromatographic" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0" Width="90" Height="28" CornerRadius="2" Hint="00 ~ FF" Text="{Binding Path=CameraFullIntegral, Mode=TwoWay}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <TextBlock VerticalAlignment="Center" Text="多光谱:"/>
+                                        <ui:WaterMarkTextBox x:Name="txtMultiChromatographic" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0" Width="90" Height="28" CornerRadius="2" Hint="00 ~ FF" Text="{Binding Path=CameraMultiIntegral, Mode=TwoWay}"/>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="积分级数" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraIntegralNumberCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock VerticalAlignment="Center" Text="全色谱:"/>
+                                            <ui:NumericBox VerticalAlignment="Center" Margin="5,0" Width="90" Height="30" MinValue="0" MaxValue="5" Step="1" Value="{Binding Path=CameraFullGain, Mode=TwoWay}"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock VerticalAlignment="Center" Text="多光谱:"/>
+                                            <ui:NumericBox VerticalAlignment="Center" Margin="5,0" Width="90" Height="30" MinValue="0" MaxValue="5" Step="1" Value="{Binding Path=CameraMultiGain, Mode=TwoWay}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="数字增益设置" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraDigitGainCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <ComboBox VerticalAlignment="Center" Width="50" Height="26" IsEditable="True" ItemsSource="{Binding CameraAnalogGain}" SelectedIndex="0" SelectedValue="{Binding CurrCameraAnalogGain}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
+                                            <ui:FlatButton VerticalAlignment="Center" Content="模拟增益设置" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraAnalogGainCommand}"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <ui:WaterMarkTextBox x:Name="txtCameraLine" VerticalAlignment="Center" Width="80" Height="24" CornerRadius="2" Text="{Binding CameraLine}" Hint="010E～0FFF"/>
+                                            <TextBlock VerticalAlignment="Center" Margin="5,0" Text="1/bit"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="行周期设置" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraLineCommand}"  CommandParameter="{Binding Path=Text, ElementName=txtCameraLine}"/>
+                                </Grid>
+
+                                <Grid Grid.Row="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <ui:WaterMarkTextBox x:Name="txtCameraTime" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Height="28" CornerRadius="2" Hint="时间秒"/>
+                                        <ui:FlatButton VerticalAlignment="Center" HorizontalAlignment="Right" Content="中心机授时" Margin="0 0 5 0" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraTimeCommand}" CommandParameter="{Binding Path=Text, ElementName=txtCameraTime}"/>
+                                    </StackPanel>
+                                    
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="中心机授时使能" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraTimEnableCommand}"/>
+                                </Grid>
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding CameraBus}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <RadioButton GroupName="rodCameraBus" Width="60" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Checked">
+                                                                    <light:EventToCommand Command="{Binding DataContext.CameraBusChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </RadioButton>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="总线测试" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraBusCommand}"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem  Header="4" Margin="5 0" Height="28" Width="50" Style="{DynamicResource TabItemWithUnderLineStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="P谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralFullLine}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="全色谱段开窗行数" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraSpectralFullLineCommand}"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="R谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralLineR}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="G谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralLineG}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="B谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralLineB}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="IR谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralLineIR}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <ui:FlatButton Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="多光谱段开窗行数" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraSpectralMultiLineCommand}"/>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="P谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralFullStart}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <ui:FlatButton Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="全色谱段开窗起始行" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraSpectralFullStartCommand}"/>
+                                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="R谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralStartR}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="G谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralStartG}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="B谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralStartB}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" Text="IR谱段:"/>
+                                    <ui:WaterMarkTextBox VerticalAlignment="Center" Margin="5,0" Width="60" Height="24" CornerRadius="2" Text="{Binding CameraSpectralStartIR}" Hint="0000～0FFF"/>
+                                    <TextBlock VerticalAlignment="Center" Text="1/bit"/>
+                                </StackPanel>
+                                <ui:FlatButton Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="多光谱段开窗起始行" Width="100" Height="28" CornerRadius="2" Command="{Binding CameraSpectralMultiStartCommand}"/>
+                            </Grid>
+                        </TabItem>
+                        
+
+                    </TabControl>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="系统指令应答" Margin="2">
+                <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding CameraResponse}" Style="{DynamicResource DataGridStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                        <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                        <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="数据同步广播" Margin="2">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ui:WaterMarkTextBox x:Name="second" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Height="28" CornerRadius="2" Hint="时间秒"/>
+                    <ui:FlatButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="数据同步广播" Width="100" Height="28" CornerRadius="2" Command="{Binding SecondCommand}" CommandParameter="{Binding Path=Text, ElementName=second}"/>
+                    <ui:FlatButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="辅助数据广播" Width="100" Height="28" CornerRadius="2" Command="{Binding SetWorkModeCommand}"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="工程参数" Margin="2">
+                <DataGrid Margin="2" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding CameraParam}" Style="{DynamicResource DataGridStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                        <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                        <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Page>

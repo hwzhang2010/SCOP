@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6BFA410D-C391-4D29-93E5-EB77C12DED26}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TSFCS.SCOP</RootNamespace>
+    <AssemblyName>TSFCS.SCOP</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.5\lib\net40\CommonServiceLocator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.0\lib\net40\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=0e453835af4ee6ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net40\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=f46ff315b1088208, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net40\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LitJSON, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LitJson.0.16.0\lib\net40\LitJSON.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.0.0\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.112.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.1\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="DAL\CmdOperation.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="FullScreenManager.cs" />
+    <Compile Include="Helper\ByteHelper.cs" />
+    <Compile Include="Helper\PageHelper.cs" />
+    <Compile Include="Helper\PasswordBoxHelper.cs" />
+    <Compile Include="Model\AdcsModel.cs" />
+    <Compile Include="Model\CameraModel.cs" />
+    <Compile Include="Model\CmdModel.cs" />
+    <Compile Include="Model\DigitModel.cs" />
+    <Compile Include="Model\GpsModel.cs" />
+    <Compile Include="Model\PowerModel.cs" />
+    <Compile Include="Model\SendModel.cs" />
+    <Compile Include="Model\TempModel.cs" />
+    <Compile Include="Model\UdpModel.cs" />
+    <Compile Include="ViewModel\DigitViewModel.cs" />
+    <Compile Include="ViewModel\PowerViewModel.cs" />
+    <Compile Include="ViewModel\TempViewModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
+    <Compile Include="DAL\Sqlite.cs" />
+    <Compile Include="TimerWait.cs" />
+    <Compile Include="Udp\UdpMessage.cs" />
+    <Compile Include="Udp\UdpProtocol.cs" />
+    <Compile Include="Udp\UdpService.cs" />
+    <Compile Include="ViewModel\AdcsViewModel.cs" />
+    <Compile Include="ViewModel\CameraViewModel.cs" />
+    <Compile Include="ViewModel\GpsViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ObcViewModel.cs" />
+    <Compile Include="ViewModel\SeeViewModel.cs" />
+    <Compile Include="ViewModel\SetViewModel.cs" />
+    <Compile Include="ViewModel\TtcViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\CameraView.xaml.cs">
+      <DependentUpon>CameraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GpsView.xaml.cs">
+      <DependentUpon>GpsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ObcView.xaml.cs">
+      <DependentUpon>ObcView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DigitView.xaml.cs">
+      <DependentUpon>DigitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PowerView.xaml.cs">
+      <DependentUpon>PowerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SeeView.xaml.cs">
+      <DependentUpon>SeeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SetView.xaml.cs">
+      <DependentUpon>SetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TempView.xaml.cs">
+      <DependentUpon>TempView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TtcView.xaml.cs">
+      <DependentUpon>TtcView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Style\DataGridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\MenuItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\TabControlWithUnderLineStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\ComboBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AdcsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CameraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GpsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\AdcsView.xaml.cs">
+      <DependentUpon>AdcsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Style\ExpanderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\ScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\TopTabControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ObcView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DigitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PowerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TempView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TtcView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastSocket\FastSocket.csproj">
+      <Project>{8D6BBF39-645C-4D7F-B25C-02FFC0BD8129}</Project>
+      <Name>FastSocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSFCS.UI\TSFCS.UI.csproj">
+      <Project>{563C3676-AED6-436A-8366-11B1E54D1D94}</Project>
+      <Name>TSFCS.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\adcs.png" />
+    <Resource Include="ImageSource\Navi\camera.png" />
+    <Resource Include="ImageSource\Navi\gps.png" />
+    <Resource Include="ImageSource\Navi\ttc.png" />
+    <Resource Include="ImageSource\Sys\back_hover.png" />
+    <Resource Include="ImageSource\Sys\back_normal.png" />
+    <Resource Include="ImageSource\Sys\back_press.png" />
+    <Resource Include="ImageSource\Sys\close_hover.png" />
+    <Resource Include="ImageSource\Sys\close_normal.png" />
+    <Resource Include="ImageSource\Sys\close_press.png" />
+    <Resource Include="ImageSource\Sys\line.png" />
+    <Resource Include="ImageSource\Sys\max_hover.png" />
+    <Resource Include="ImageSource\Sys\max_normal.png" />
+    <Resource Include="ImageSource\Sys\max_press.png" />
+    <Resource Include="ImageSource\Sys\menu_hover.png" />
+    <Resource Include="ImageSource\Sys\menu_normal.png" />
+    <Resource Include="ImageSource\Sys\menu_press.png" />
+    <Resource Include="ImageSource\Sys\min_hover.png" />
+    <Resource Include="ImageSource\Sys\min_normal.png" />
+    <Resource Include="ImageSource\Sys\min_press.png" />
+    <Resource Include="ImageSource\Sys\next_hover.png" />
+    <Resource Include="ImageSource\Sys\next_normal.png" />
+    <Resource Include="ImageSource\Sys\next_press.png" />
+    <Resource Include="ImageSource\Sys\normal_hover.png" />
+    <Resource Include="ImageSource\Sys\normal_normal.png" />
+    <Resource Include="ImageSource\Sys\normal_press.png" />
+    <Resource Include="ImageSource\Sys\refresh_click.png" />
+    <Resource Include="ImageSource\Sys\refresh_hover.png" />
+    <Resource Include="ImageSource\Sys\refresh_normal.png" />
+    <Resource Include="ImageSource\Sys\search.png" />
+    <Resource Include="ImageSource\Sys\search_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Style\add_hover.png" />
+    <Resource Include="ImageSource\Style\add_normal.png" />
+    <Resource Include="ImageSource\Style\down_hover.png" />
+    <Resource Include="ImageSource\Style\down_normal.png" />
+    <Resource Include="ImageSource\Style\up_hover.png" />
+    <Resource Include="ImageSource\Style\up_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Sys\head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Sys\green.png" />
+    <Resource Include="ImageSource\Sys\red.png" />
+    <Resource Include="ImageSource\Sys\run.png" />
+    <Resource Include="ImageSource\Sys\sliver.png" />
+    <Resource Include="ImageSource\Sys\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Login\administrator.png" />
+    <Resource Include="ImageSource\Login\background.png" />
+    <Resource Include="ImageSource\Login\close_enter.png" />
+    <Resource Include="ImageSource\Login\close_move.png" />
+    <Resource Include="ImageSource\Login\close_normal.png" />
+    <Resource Include="ImageSource\Login\min_enter.png" />
+    <Resource Include="ImageSource\Login\min_move.png" />
+    <Resource Include="ImageSource\Login\min_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\obc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\wod.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\code.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\power.png" />
+    <Resource Include="ImageSource\Navi\temp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Sys\on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Sys\off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSource\Navi\dc.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

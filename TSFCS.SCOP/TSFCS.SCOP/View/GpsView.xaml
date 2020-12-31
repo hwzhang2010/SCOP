@@ -1,0 +1,73 @@
+﻿<Page x:Class="TSFCS.SCOP.View.GpsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:light="http://www.galasoft.ch/mvvmlight"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:ui="clr-namespace:TSFCS.UI;assembly=TSFCS.UI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="GpsView">
+    <Page.DataContext>
+        <Binding Path="Gps" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="时间信息" Margin="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label VerticalAlignment="Center" Margin="20,0" Content="GPS周:"/>
+                    <ui:WaterMarkTextBox VerticalAlignment="Center" Width="120" Height="28" CornerRadius="2" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label VerticalAlignment="Center" Margin="20,0" Content="GPS秒:"/>
+                    <ui:WaterMarkTextBox VerticalAlignment="Center" Width="120" Height="28" CornerRadius="2" IsReadOnly="True"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="遥测信息" Margin="2">
+            <StackPanel Orientation="Vertical">
+                <DataGrid x:Name="dgGps" Margin="2" AutoGenerateColumns="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" SelectionUnit="FullRow" SelectionMode="Single" AlternationCount="2" IsReadOnly="True" ItemsSource="{Binding Gps}" Style="{DynamicResource DataGridStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="序号" Width="1*" FontSize="12" Binding="{Binding Num}"/>
+                        <DataGridTextColumn Header="参数名称" Width="3*" FontSize="12" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="16进制" Width="2*" FontSize="12" Binding="{Binding Hex}"/>
+                        <DataGridTextColumn Header="解算值" Width="2*" FontSize="12" Binding="{Binding Cal}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DockPanel LastChildFill="False" Margin="2">
+                    <ItemsControl DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding GpsComm}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <RadioButton GroupName="rdoGpsComm" Width="100" VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name, Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <light:EventToCommand Command="{Binding DataContext.GpsCommChangedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ui:FlatButton x:Name="btnGpsData" DockPanel.Dock="Right" Content="遥测请求" Width="120" Height="28" CornerRadius="2" Command="{Binding GpsDataCommand}"/>
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Page>
